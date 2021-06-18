@@ -1,0 +1,27 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "A project using NodeJs, GraphQL, and MongoDB",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node -r esm index.js",
+    "lint": "eslint --ext .js ./",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Peculiar Erhis",
+  "license": "ISC",
+  "dependencies": {
+    "app-root-path": "^3.0.0",
+    "dotenv": "^10.0.0",
+    "esm": "^3.2.25",
+    "express": "^4.17.1",
+    "mongoose": "^5.12.14",
+    "morgan": "^1.10.0",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "eslint": "^7.28.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.23.4"
+  }
+}

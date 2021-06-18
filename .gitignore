@@ -1,0 +1,14 @@
+node_modules
+dist
+.history
+.DS_Store
+.env
+.cache
+dist
+temp
+tmp
+.vscode
+.nyc_output
+coverage
+logs
+data
