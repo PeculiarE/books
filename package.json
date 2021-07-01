@@ -4,17 +4,22 @@
   "description": "A project using NodeJs, GraphQL, and MongoDB",
   "main": "index.js",
   "scripts": {
-    "dev": "node -r esm index.js",
+    "dev": "nodemon -r esm index.js",
     "lint": "eslint --ext .js ./",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Peculiar Erhis",
   "license": "ISC",
   "dependencies": {
+    "apollo-server-express": "^2.25.1",
     "app-root-path": "^3.0.0",
+    "bcrypt": "^5.0.1",
+    "dataloader": "^2.0.0",
     "dotenv": "^10.0.0",
     "esm": "^3.2.25",
     "express": "^4.17.1",
+    "graphql": "^15.5.1",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.14",
     "morgan": "^1.10.0",
     "winston": "^3.3.3"

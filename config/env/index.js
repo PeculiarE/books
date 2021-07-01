@@ -1,9 +1,10 @@
 import 'dotenv/config';
 import development from './development';
 
-const { PORT } = process.env;
+const { PORT, SECRET } = process.env;
 
 export default {
   ...development,
   PORT,
+  SECRET,
 };
