@@ -5,7 +5,7 @@ const author = gql`
         _id: ID
         firstName: String!
         lastName: String!
-        email: String!
+        email: EmailAddress!
         password: String!
         books: [Book]
     }
@@ -19,12 +19,12 @@ const author = gql`
     input AuthorInput {
         firstName: String!
         lastName: String!
-        email: String!
+        email: EmailAddress!
         password: String!
     }
 
     input AuthorLoginDetails {
-        email: String!
+        email: EmailAddress!
         password: String!
     }
 

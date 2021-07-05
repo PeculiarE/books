@@ -3,8 +3,9 @@ import morgan from 'morgan';
 import mongoose from 'mongoose';
 import { ApolloServer } from 'apollo-server-express';
 import config from './config';
-import { typeDefs, resolvers } from './app/graphql';
+import { typeDefs, resolvers, schemaDirectives } from './app/graphql';
 import { AuthService } from './app/services';
+import { helpers } from './app/utils';
 
 const { PORT, DATABASE_URL, logger } = config;
 
@@ -16,7 +17,9 @@ app.use(json());
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  schemaDirectives,
   context: ({ req }) => AuthService(req),
+  formatError: (e) => helpers.ResponseHelpers.authErrorResolver(e),
 });
 
 server.applyMiddleware({ app, path: '/graphql' });
@@ -28,10 +31,6 @@ app.get('/', (req, res) => {
     .status(200)
     .json('Hola! New Project here...');
 });
-
-// mongoose.set('debug', (collectionName, method, query, doc) => {
-//   logger.info(`${collectionName}.${method}`, JSON.stringify(query), doc);
-// });
 
 mongoose.set('debug', true);
 

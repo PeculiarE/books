@@ -13,8 +13,7 @@ const checkAuthorization = (authorization) => {
 
 const checkToken = (req) => {
   const { authorization } = req.headers;
-  const token = checkAuthorization(authorization);
-  return token;
+  return checkAuthorization(authorization);
 };
 
 const authenticate = (req) => {
@@ -22,10 +21,10 @@ const authenticate = (req) => {
     const token = checkToken(req);
     const decoded = verifyToken(token);
     req.user = decoded;
-    return req.user;
+    return req;
   } catch (error) {
     req.error = { error };
-    return req.error;
+    return req;
   }
 };
 

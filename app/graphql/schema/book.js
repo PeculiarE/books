@@ -15,19 +15,25 @@ const book = gql`
     }
 
     #RESPONSE TYPES
-    type BookResponse {
+    type SingleBookResponse {
         status: Int!
         message: String!
         data: Book
     }
 
+    type MultipleBooksResponse {
+        status: Int!
+        message: String!
+        data: [Book]
+    }
+
     extend type Query {
-        getAllBooks: [Book]
-        getSingleBook(bookId: ID!): Book
+        getAllBooks: MultipleBooksResponse
+        getSingleBook(bookId: ID!): SingleBookResponse
     }
 
     extend type Mutation {
-        addNewBook(data: BookInput!): BookResponse!
+        addNewBook(data: BookInput!): SingleBookResponse! @auth
     }
 `;
 

@@ -15,8 +15,11 @@ export default {
   AUTH_ERROR: 'AUTHORIZATION_ERROR',
   INVALID_CREDENTIALS: 'Incorrect login details',
   RESOURCE_CREATE_ERROR: (entity) => `${entity.toUpperCase()}_CREATE_ERROR`,
+  RESOURCE_FETCH_ERROR: (entity) => `${entity.toUpperCase()}_FETCH_ERROR`,
   ACCOUNT_SIGNIN_ERROR: 'ACCOUNT_SIGNIN_ERROR',
   LOGIN_SUCCESS: 'Login successful',
   ERROR_CREATING_RESOURCE: 'Error creating resource',
   INVALID_AUTHORIZATION: 'You are not allowed to perform this action',
+  INPUT_ERROR: 'USER_INPUT_ERROR',
+  INVALID_INPUT: 'Invalid data provided',
 };

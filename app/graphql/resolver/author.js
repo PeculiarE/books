@@ -13,7 +13,8 @@ const {
 const {
   apiMessages: {
     SIGN_UP_SUCCESS, RESOURCE_CREATE_ERROR, LOGIN_SUCCESS,
-    INVALID_CREDENTIALS, ACCOUNT_SIGNIN_ERROR,
+    INVALID_CREDENTIALS, ACCOUNT_SIGNIN_ERROR, RESOURCE_FETCHED_OK,
+    RESOURCE_FETCH_ERROR,
   },
   httpStatusCodes: {
     CREATED, OK, BAD_REQUEST,
@@ -48,13 +49,21 @@ const authorResolvers = {
   },
   Query: {
     async getAllAuthors() {
-      const authors = await findAllAuthors();
-      return authors;
+      try {
+        const authors = await findAllAuthors();
+        return sendGraphQLResponse(OK, RESOURCE_FETCHED_OK('Authors'), authors);
+      } catch (error) {
+        return errorResolver(error, RESOURCE_FETCH_ERROR('Authors'));
+      }
     },
 
     async getSingleAuthor(_, { authorId }) {
-      const author = await findSingleAuthorById(authorId);
-      return author;
+      try {
+        const author = await findSingleAuthorById(authorId);
+        return sendGraphQLResponse(OK, RESOURCE_FETCHED_OK('Author'), author);
+      } catch (error) {
+        return errorResolver(error, RESOURCE_FETCH_ERROR('Author'));
+      }
     },
   },
   Author: {
