@@ -7,18 +7,16 @@ const findAllBooks = async () => Book.find();
 
 const findSingleBook = async (bookId) => Book.findById(bookId);
 
-const findBooksBySameAuthor = async (authorId) => Book.find({ author: authorId });
+const findBooksBySameAuthor = async (authorIds) => {
+  const books = await Book.find({ author: { $in: authorIds } });
+  return authorIds.map((el) => books.filter((n) => String(n.author) === String(el)));
+};
 
-const booksLoader = new DataLoader(async (authorIds) => {
-  const books = await findBooksBySameAuthor(authorIds);
-  const booksBySameAuthor = authorIds
-    .map((authorId) => books.filter((book) => String(book.author) === String(authorId)));
-  return Promise.resolve(booksBySameAuthor);
-});
+const booksDataLoader = () => new DataLoader(findBooksBySameAuthor);
 
 export {
   createNewBook,
   findAllBooks,
   findSingleBook,
-  booksLoader,
+  booksDataLoader,
 };

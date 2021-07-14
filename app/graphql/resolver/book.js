@@ -16,9 +16,9 @@ const {
 
 const bookResolvers = {
   Mutation: {
-    async addNewBook(_, args, { user }) {
+    async addNewBook(_, args, { req }) {
       try {
-        const author = user._id;
+        const author = req.user._id;
         const bookData = { ...args.data, author };
         const book = await createNewBook({ ...bookData });
         return sendGraphQLResponse(CREATED, RESOURCE_CREATED_OK('Book'), book);

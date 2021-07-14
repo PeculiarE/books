@@ -1,10 +1,16 @@
 import 'dotenv/config';
 import development from './development';
+import test from './test';
 
-const { PORT, SECRET } = process.env;
+const { PORT, SECRET, NODE_ENV } = process.env;
+
+const currentEnv = {
+  development,
+  test,
+}[NODE_ENV || 'development'];
 
 export default {
-  ...development,
+  ...currentEnv,
   PORT,
   SECRET,
 };

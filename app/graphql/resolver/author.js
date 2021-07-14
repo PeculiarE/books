@@ -1,10 +1,9 @@
-import { AuthorServices, BookServices } from '../../services';
+import { AuthorServices } from '../../services';
 import { helpers, constants } from '../../utils';
 
 const {
   createNewAuthor, findAllAuthors, findSingleAuthorById, findSingleAuthorByEmail,
 } = AuthorServices;
-const { booksLoader } = BookServices;
 const {
   AuthHelpers: {
     hashPassword, addDataToToken, comparePassword,
@@ -67,8 +66,8 @@ const authorResolvers = {
     },
   },
   Author: {
-    async books(parent) {
-      return booksLoader.load(parent._id);
+    async books(parent, _, { loaders }) {
+      return loaders.booksLoader.load(parent._id);
     },
   },
 };
