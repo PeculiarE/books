@@ -1,29 +1,31 @@
-import express, { json } from 'express';
-import morgan from 'morgan';
-import mongoose from 'mongoose';
+import express from 'express';
+import { ApolloServer } from 'apollo-server-express';
 import config from './config';
+import { typeDefs, resolvers, schemaDirectives } from './app/graphql';
+import { AuthService, BookServices } from './app/services';
+import { helpers } from './app/utils';
+
+const { appConfig, logger } = config;
+
+const { booksDataLoader } = BookServices;
+
+global.logger = logger;
 
 const app = express();
-const port = config.PORT || 4000;
 
-app.use(morgan('combined', { stream: config.logger.stream }));
-app.use(json());
-
-app.get('/', (req, res) => {
-  res
-    .status(200)
-    .json('Hola! New Project here...');
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  schemaDirectives,
+  context: ({ req }) => ({
+    req: AuthService(req),
+    loaders: {
+      booksLoader: booksDataLoader(),
+    },
+  }),
+  formatError: (e) => helpers.ResponseHelpers.errorResolver(e),
 });
 
-mongoose
-  .connect(config.DATABASE_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    app.listen(port, () => config.logger.info(`Server ready on port ${port}`));
-    config.logger.info('Connected to the db');
-  })
-  .catch((error) => {
-    config.logger.error(error.message);
-  });
+appConfig(app, server);
+
+export default app;
