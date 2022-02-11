@@ -1,8 +1,7 @@
-import { AuthorServices, BookServices } from '../../services';
+import { BookServices } from '../../services';
 import { helpers, constants } from '../../utils';
 
 const { createNewBook, findAllBooks, findSingleBook } = BookServices;
-const { findSingleAuthorById } = AuthorServices;
 
 const { ResponseHelpers: { sendGraphQLResponse, errorResolver } } = helpers;
 
@@ -46,8 +45,8 @@ const bookResolvers = {
     },
   },
   Book: {
-    async author(parent) {
-      return findSingleAuthorById(parent.author);
+    async author(parent, _, { loaders }) {
+      return loaders.authorsLoader.load(parent.author);
     },
   },
 };

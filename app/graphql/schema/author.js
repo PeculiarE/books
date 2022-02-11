@@ -2,7 +2,7 @@ import { gql } from 'apollo-server-express';
 
 const author = gql`
     type Author {
-        _id: ID
+        _id: ObjectID!
         firstName: String!
         lastName: String!
         email: EmailAddress!
@@ -50,7 +50,7 @@ const author = gql`
     #QUERY
     extend type Query {
         getAllAuthors: MultipleAuthorsResponse!
-        getSingleAuthor(authorId: ID!): SingleAuthorResponse!
+        getSingleAuthor(authorId: ObjectID!): SingleAuthorResponse!
     }
 
     #MUTATION

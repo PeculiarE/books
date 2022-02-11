@@ -2,7 +2,7 @@ import { gql } from 'apollo-server-express';
 
 const book = gql`
     type Book {
-        _id: ID
+        _id: ObjectID!
         title: String!
         price: Float!
         author: Author
@@ -29,7 +29,7 @@ const book = gql`
 
     extend type Query {
         getAllBooks: MultipleBooksResponse
-        getSingleBook(bookId: ID!): SingleBookResponse
+        getSingleBook(bookId: ObjectID!): SingleBookResponse
     }
 
     extend type Mutation {

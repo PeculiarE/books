@@ -36,7 +36,7 @@ const authorResolvers = {
       try {
         const author = await findSingleAuthorByEmail(email);
         if (author && await comparePassword(password, author.password)) {
-          const token = addDataToToken(author._doc);
+          const token = addDataToToken(author);
           return sendGraphQLResponse(OK, LOGIN_SUCCESS, { token, author });
         }
         moduleErrLogMessager(BAD_REQUEST, ACCOUNT_SIGNIN_ERROR, { message: INVALID_CREDENTIALS });
